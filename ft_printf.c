@@ -6,7 +6,7 @@
 /*   By: sbehar <sbehar@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 10:28:29 by sbehar            #+#    #+#             */
-/*   Updated: 2024/11/21 12:04:19 by sbehar           ###   ########.fr       */
+/*   Updated: 2024/11/21 14:36:42 by sbehar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static int	ft_handle_format(char percent, va_list args)
 	else if (percent == 's')
 		count += ft_putstr(va_arg(args, char *));
 	else if (percent == 'p')
-	{
-		count += ft_putstr("0x");
-		count += ft_putnbr_hex(va_arg(args, unsigned long long), 0);
-	}
+		count += ft_isptrnull(va_arg(args, unsigned long));
 	else if (percent == 'd' || percent == 'i')
 		count += ft_putnbr(va_arg(args, int));
 	else if (percent == 'u')
@@ -55,11 +52,19 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			write(1, format, 1);
-			count++;
+			count += ft_putchar(*format);
 		}
 		format++;
 	}
 	va_end(args);
 	return (count);
 }
+
+/*int	main()
+{
+	char *s;
+	char str = "salut";
+	int	nb;
+	nb = ft_printf("%p\n", &str);
+	ft_printf("%d", nb);
+}*/
